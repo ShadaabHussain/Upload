@@ -1,11 +1,15 @@
 # import pytest
+import time
 from selenium import webdriver
 from pageObjects.LoginPage import loginPage
+from utilities.readProperties import ReadConfig
+headless_option =webdriver.ChromeOptions()
+headless_option.add_argument("headless")
 
 class Test_001_Login:
-    baseUrl = "https://admin-demo.nopcommerce.com/"
-    username ="admin@yourstore.com"
-    password = "admin"
+    baseUrl = ReadConfig.getApplicationURL()
+    username = ReadConfig.getUsermail()
+    password = ReadConfig.getPassword()
 
     def test_homepageTitle(self,setup):
         self.driver = setup

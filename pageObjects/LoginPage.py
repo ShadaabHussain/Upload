@@ -10,6 +10,7 @@ class loginPage:
     link_logout_linktext ="Logout"
 
     def __init__(self,driver):
+
         self.driver=driver
 
     def setUserName(self,username):
@@ -24,4 +25,4 @@ class loginPage:
         self.driver.find_element(By.XPATH,self.Button_login_xpath).click()
 
     def clickLogout(self):
-        self.driver.find_element(By.LINK_TEXTself.link_logout_linktext).click()
+        self.driver.find_element(By.LINK_TEXT,self.link_logout_linktext).click()

@@ -1,16 +1,31 @@
-# This is a sample Python script.
+from selenium.webdriver.common.by import By
+from twocaptcha import TwoCaptcha
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium import webdriver
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# Instantiate the WebDriver
+driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 
+# Load the target page
+captcha_page_url = "https://recaptcha-demo.appspot.com/recaptcha-v2-checkbox.php"
+driver.get(captcha_page_url)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# Solve the Captcha
+print("Solving Captcha")
+solver = TwoCaptcha("2CAPTCHA_API_KEY")
+response = solver.recaptcha(sitekey='SITE_KEY', url=captcha_page_url)
+code = response['code']
+print(f"Successfully solved the Captcha. The solve code is {code}")
 
+# Set the solved Captcha
+recaptcha_response_element = driver.find_element(By.ID, 'g-recaptcha-response')
+driver.execute_script(f'arguments[0].value = "{code}";', recaptcha_response_element)
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+# Submit the form
+submit_btn = driver.find_element(By.CSS_SELECTOR, 'button[type="submit"]')
+submit_btn.click()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# Pause the execution so you can see the screen after submission before closing the driver
+input("Press enter to continue")
+driver.close()
