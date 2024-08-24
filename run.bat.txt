@@ -1,0 +1,6 @@
+pytest -rA --html=Reports\report.html .\testCases --browser chrome
+rem pytest -rA --html=Reports\report.html .\testCases --browser chrome
+rem pytest -rA --html=Reports\report.html .\testCases --browser chrome
+rem pytest -rA --html=Reports\report.html .\testCases --browser chrome
+rem pytest -rA --html=Reports\report.html .\testCases --browser chrome
+rem pytest -rA --html=Reports\report.html .\testCases --browser chrome
